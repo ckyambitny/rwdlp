@@ -36,7 +36,7 @@ ul.navmenu li a:active {
 	ul.navmenu li a:link,
 	ul.navmenu li a:visited {
 		border-bottom-style: solid;
-		border-bottom-size: 0.25rem;
+		border-bottom-width: 0.5rem;
 		border-bottom-color: white;
 	}
 
@@ -124,7 +124,9 @@ a.learnmore {
 }
 
 /* MAJOR SELLING POINTS */
-
+.wrap h1{
+  color: #3084BF;
+}
 .point h2 {
 	color: #3084BF;
 }

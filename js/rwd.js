@@ -1,102 +1,98 @@
-jQuery(document).ready(function($){
-    var 
+jQuery(document).ready(function($) {
+    var
         watch_el = $('body'),
         el_height = watch_el.innerHeight();
-  
-  // Touch friendly expanded nav
-  $('ul.navmenu li span').click(function(event){
 
-    event.preventDefault();
 
-    // get the child of the clicked menu switch
-    var child_menu = $(this).parent().parent().children('ul');
+    // Plusik dropdown
+    $('ul.navmenu li a span').click(function(event) {
 
-    // get the parent link of the clicked menu switch
-    var parent_link = $(this).parent();
+        event.preventDefault();
 
-    // check if it's currently open or closed
-    if ( child_menu.hasClass('childopen') ) {
-      // if it's open, close it
+        // dostac sie do schowanego menu
+        var child_menu = $(this).parent().parent().children('ul');
 
-      // remove any "active" class from parent item
-      $(parent_link).removeClass('active');
-      // hide child menu
-      $(child_menu).removeClass('childopen');
-      // set this open menu switch to +
-      $(this).html('+');
+        // link w ktorym byl '+'
+        var parent_link = $(this).parent();
 
-    } else {
-      // if it's closed, open it
+        // sprawdzamy czy dropdown otwarty czy nie
+        if (child_menu.hasClass('childopen')) {
+            // jesli otwarty, trzeba go zamknac
 
-      // hide any open child menus
-      $('ul.navmenu ul').removeClass('childopen');
-      // set any open menu switch symbols back to +
-      $('ul.navmenu li span').html('+');
-      // remove any existing "active" class from menus
-      $('.active').removeClass('active');
+            // usunac klase active z parenta(linku)
+            $(parent_link).removeClass('active');
+            // schowac dropdowna
+            $(child_menu).removeClass('childopen');
+            // zmienic ikonke na +
+            $(this).html('+');
 
-      // add "active" class to this parent item
-      $(parent_link).addClass('active');
-      // show correct child menu
-      $(child_menu).addClass('childopen');
-      // set this open menu switch to -
-      $(this).html('-');
+        } else {
+            // jesli zamkniety trzeba go otworzyc
 
-      return false;
+            // do linku dodajemy klase active
+            $(parent_link).addClass('active');
+            // pokaz dropdowna
+            $(child_menu).addClass('childopen');
+            // zmiana ikonki na - do zwiniecia
+            $(this).html('-');
 
-    }
+            
 
-  });
+        }
 
-  $('.navicon').click(function(){
-    
-    if ( $('.navmenu').css('display') == 'none' ) {
-
-      $('.navmenu').addClass('show');
-      $('.navicon').removeClass('closed').addClass('open');
-      $('.navicon').children('.fa').removeClass('fa-navicon').addClass('fa-close');
-
-    } else {
-
-      $('.navmenu').removeClass('show');
-      $('.navicon').removeClass('open').addClass('closed');
-      $('.navicon').children('.fa').removeClass('fa-close').addClass('fa-navicon');
-
-    }
-
-  });
-
-  // Responsive iframes
-  function responsiveIframe() {
-    $('iframe').each(function(){
-      var 
-       iw = $(this).width(),
-       ih = $(this).height(),
-       ip = $(this).parent().width(),
-       ipw = ip/iw,
-       ipwh = Math.round(ih*ipw);
-      $(this).css({
-        'width': ip,
-        'height' : ipwh,
-      });
     });
-  }
+    //burger menu
+    $('.navicon').click(function() {
+        //jesli navi zamkniete
+        if ($('.navmenu').css('display') == 'none') {
+            //trzeba je otworzyc
+            $('.navmenu').addClass('show');
+            // burger zmiana klasy,
+            $('.navicon').removeClass('closed').addClass('open');
+            //zmiana favicona
+            $('.navicon').children('.fa').removeClass('fa-navicon').addClass('fa-close');
 
-  // Trigger video resize if browser is resized
-  $(window).resize(function(){
-    responsiveIframe();
-  });
+        } else {
+            //jesli navi otwarte to zakmnac
+            $('.navmenu').removeClass('show');
+            $('.navicon').removeClass('open').addClass('closed');
+            $('.navicon').children('.fa').removeClass('fa-close').addClass('fa-navicon');
 
-  // Watch body height to see if font size settings are changed
-  window.setInterval(function(){
-    var new_height = watch_el.innerHeight();
-    if ( new_height != el_height ) {
-      el_height = new_height;
-      responsiveIframe();
+        }
+
+    });
+
+    // Responsywne iframeý, zachowane proporcje
+    function responsiveIframe() {
+        $('iframe').each(function() {
+            var
+                iw = $(this).width(),
+                ih = $(this).height(),
+                ip = $(this).parent().width(),
+                ipw = ip / iw,
+                ipwh = Math.round(ih * ipw);
+            $(this).css({
+                'width': ip,
+                'height': ipwh,
+            });
+        });
     }
-  }, 200);
+
+    //Zmiana rozmiaru iframe'a gdy zmiana rozmiaru okna
+    $(window).resize(function() {
+        responsiveIframe();
+    });
+
+    // Przy zmianie fontsize(ctrl+, ctrl scroll) zmien rozmiar 
+    window.setInterval(function() {
+        var new_height = watch_el.innerHeight();
+        if (new_height != el_height) {
+            el_height = new_height;
+            responsiveIframe();
+        }
+    }, 200);
 
 
-
-  responsiveIframe();
+    //pierwsze liczenie iframe
+    responsiveIframe();
 });

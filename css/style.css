@@ -208,10 +208,6 @@ ul.navmenu li ul {
     display: none;
   }
 
-  .navmenu {
-    display: block;
-  }
-
   ul.navmenu {
     float: right;
     display: inline-table;
@@ -323,7 +319,9 @@ ul.navmenu li ul {
 }
 
 /* MAJOR SELLING POINTS */
-
+.wrap h1{
+  text-align: center;
+}
 .point h2 {
   font-size: 1.375rem;
 }
